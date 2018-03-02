@@ -14,23 +14,22 @@ class CodableModel2 : CodableExProtocol
     var flag : String?
     enum CodingKeys : String, CodingKey
     {
-        case num = "num"
+        case num
         case flag
     }
-    
-//    convenience required init(from decoder: Decoder) throws
-//    {// 自定义decoder
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        self.init()
-//        num = try container.decode(String.self, forKey: .num)
-//        flag = try container.decode(String.self, forKey: .flag)
-//    }
-//    public func encode(to encoder: Encoder) throws
-//    {// 自定义encode
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(num, forKey: .num)
-//        try container.encode(flag, forKey: .flag)
-//    }
+    convenience required init(from decoder: Decoder) throws
+    {// 自定义decoder
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init()
+        num = try container.decode(String.self, forKey: .num)
+        flag = try container.decode(String.self, forKey: .flag)
+    }
+    public func encode(to encoder: Encoder) throws
+    {// 自定义encoder
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(num, forKey: .num)
+        try container.encode(flag, forKey: .flag)
+    }
 }
 
 enum ModelType: Int, Codable

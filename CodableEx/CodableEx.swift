@@ -37,24 +37,24 @@ extension CodableExProtocol
 
 //MARK: -
 //MARK: - Dictionary & Array extension
-extension Dictionary
+extension Dictionary where Key == String
 {
     func decode<T:Decodable>() -> T?
     {
-        guard let dict = self as? [String : Any] else { return nil }
-        return CodableEx().decode(dict)
+        return CodableEx().decode(self)
     }
 }
 
-
-extension Array where Element:Encodable
+extension Array where Element == [String : Any]
 {
     func decode<T:Decodable>() -> Array<T>?
     {
-        guard let arr = self as? Array<[String : Any]> else { return nil }
-        return CodableEx().decode(arr)
+        return CodableEx().decode(self)
     }
-    
+}
+
+extension Array where Element:Encodable
+{
     func encode() -> Array<[String:Any]>?
     {
         return CodableEx().encode(self)

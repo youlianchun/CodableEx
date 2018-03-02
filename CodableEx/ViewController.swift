@@ -74,7 +74,7 @@ class ViewController: UIViewController
             ["num":"001", "flag_f":"A", "mt":0 , "model":[["num":"0011", "flag":"A"]]],
             ["num":"002", "flag_f":"A", "mt":1 , "model":[["num":"0021", "flag":"B"]]]
         ]
-        
+
         let model : CodableModel? = dict.decode()
 
         let models : Array<CodableModel>? = arr.decode()

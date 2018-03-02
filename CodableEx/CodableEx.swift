@@ -46,7 +46,8 @@ extension Dictionary
     }
 }
 
-extension Array 
+
+extension Array where Element:Encodable
 {
     func decode<T:Decodable>() -> Array<T>?
     {
@@ -54,10 +55,9 @@ extension Array
         return CodableEx().decode(arr)
     }
     
-    func encode<T:Encodable>(_ type : T.Type) -> Array<[String:Any]>?
+    func encode() -> Array<[String:Any]>?
     {
-        guard let arr = self as? Array<T> else { return nil }
-        return CodableEx().encode(arr)
+        return CodableEx().encode(self)
     }
 }
 

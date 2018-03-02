@@ -59,6 +59,9 @@ class ViewController: UIViewController
 
     override func viewDidLoad()
     {
+        defer {
+            
+        }
         super.viewDidLoad()
         codableEx()
     }
@@ -66,17 +69,19 @@ class ViewController: UIViewController
     func codableEx()
     {
         let dict : [String : Any] = ["num":"001", "flag_f":"A", "mt":0 , "model":[["num":"0011", "flag":"A"]]]
-        let model : CodableModel? = dict.decode()
         
         let arr : Array<[String : Any]> = [
             ["num":"001", "flag_f":"A", "mt":0 , "model":[["num":"0011", "flag":"A"]]],
             ["num":"002", "flag_f":"A", "mt":1 , "model":[["num":"0021", "flag":"B"]]]
         ]
+        
+        let model : CodableModel? = dict.decode()
+
         let models : Array<CodableModel>? = arr.decode()
         
         let dict2 : [String : Any]? = model?.encode()
         
-        let arr2 = models?.encode(CodableModel.self)
+        let arr2 = models?.encode()
         
         let json : String? = model?.encode()
         
@@ -87,4 +92,6 @@ class ViewController: UIViewController
     }
 
 }
+
+
 

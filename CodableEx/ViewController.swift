@@ -60,10 +60,11 @@ class ViewController: UIViewController
     override func viewDidLoad()
     {
         defer {
-            
+
         }
         super.viewDidLoad()
         codableEx()
+        ff()
     }
     
     func codableEx()
@@ -91,7 +92,15 @@ class ViewController: UIViewController
 
     }
 
+    func ff() -> Void {
+        let v: CodableModel.CodingKeys? =  enumValue(value: "flag_f")
+        v?.rawName
+        print()
+    }
 }
 
+extension RawRepresentable{ var rawName : String { get{ return "\(self)" } } }
+
+func enumValue<E:RawRepresentable>(value:E.RawValue) -> E? { return E(rawValue: value) }
 
 

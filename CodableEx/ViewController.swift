@@ -12,6 +12,12 @@ class CodableModel2 : CodableExProtocol
 {
     var num : String?
     var flag : String?
+    func finishEncode() ->Void {
+        print("finishEncode\(self)")
+    }
+    func finishDecode() ->Void {
+        print("finishDecode\(self)")
+    }
 //    enum CodingKeys : String, CodingKey
 //    {
 //        case num
@@ -52,6 +58,12 @@ class CodableModel : CodableExProtocol
         case model
         case mt
     }
+    func finishEncode() ->Void {
+        print("finishEncode\(self)")
+    }
+    func finishDecode() ->Void {
+        print("finishDecode\(self)")
+    }
 }
 
 class ViewController: UIViewController
@@ -88,10 +100,10 @@ class ViewController: UIViewController
 
         let data : Data? = model?.encode()
 
-        print(dict2!, arr2!, json!, data!)
+//        print(dict2!, arr2!, json!, data!)
 
     }
-
+   
     func ff() -> Void {
         let v: CodableModel.CodingKeys? =  enumValue(value: "flag_f")
         v?.rawName

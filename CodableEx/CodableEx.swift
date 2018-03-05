@@ -12,6 +12,9 @@ import Foundation
 //MARK: - CodableExProtocol
 public protocol CodableExProtocol : Codable
 {
+    func finishEncode() -> Void
+    func finishDecode() -> Void
+    
     func encode() -> [String:Any]?
     func encode() -> String?
     func encode() -> Data?
@@ -19,6 +22,10 @@ public protocol CodableExProtocol : Codable
 
 extension CodableExProtocol
 {
+    func finishEncode() -> Void {}
+    
+    func finishDecode() -> Void {}
+    
     func encode() -> [String:Any]?
     {
         return CodableEx().encode(self);
@@ -65,6 +72,27 @@ extension Array where Element:Encodable
     //MARK: - CodableEx
 public class CodableEx
 {
+    //MARK: - traverse
+    //MARK: private
+    private func traverse(_ any:Any?, cmp:(_ model:CodableExProtocol)->Void) -> Void
+    {
+        if let model = any as? CodableExProtocol
+        {
+            cmp(model)
+            let mirror = Mirror(reflecting: model)
+            for (_, value) in mirror.children {
+                traverse(value, cmp: cmp)
+            }
+            return
+        }
+        if let models = any as? Array<CodableExProtocol>
+        {
+            for model in models {
+                traverse(model, cmp: cmp)
+            }
+        }
+    }
+    
     //MARK: - decode
     //MARK: private
     private func decode<T>(json : String) -> T?
@@ -84,6 +112,7 @@ public class CodableEx
     {
         guard let data:Data = decode(any:any) else { return nil }
         let any = try? JSONDecoder().decode(RT.self, from: data)
+        traverse(any) { $0.finishDecode() }
         return any
     }
     
@@ -117,6 +146,7 @@ public class CodableEx
     {
         guard let data : Data = encode(obj) else { return nil }
         let any = try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers])
+        traverse(obj) { $0.finishEncode() }
         return any as? RT
     }
     
@@ -143,4 +173,5 @@ public class CodableEx
     {
         return _encode(obj: models)
     }
+    
 }

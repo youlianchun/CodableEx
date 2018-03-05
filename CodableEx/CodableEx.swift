@@ -10,6 +10,7 @@ import Foundation
 
 //MARK: -
 //MARK: - CodableExProtocol
+
 public protocol CodableExProtocol : Codable
 {
     func finishEncode() -> Void
@@ -23,7 +24,6 @@ public protocol CodableExProtocol : Codable
 extension CodableExProtocol
 {
     func finishEncode() -> Void {}
-    
     func finishDecode() -> Void {}
     
     func encode() -> [String:Any]?
@@ -70,25 +70,25 @@ extension Array where Element:Encodable
 
     //MARK: -
     //MARK: - CodableEx
-public class CodableEx
+private class CodableEx
 {
     //MARK: - traverse
     //MARK: private
-    private func traverse(_ any:Any?, cmp:(_ model:CodableExProtocol)->Void) -> Void
+    private func traverse(_ any : Any?, _ finish : (CodableExProtocol)->Void) -> Void
     {
         if let model = any as? CodableExProtocol
         {
-            cmp(model)
+            finish(model)
             let mirror = Mirror(reflecting: model)
             for (_, value) in mirror.children {
-                traverse(value, cmp: cmp)
+                traverse(value, finish)
             }
             return
         }
         if let models = any as? Array<CodableExProtocol>
         {
             for model in models {
-                traverse(model, cmp: cmp)
+                traverse(model, finish)
             }
         }
     }
@@ -116,7 +116,6 @@ public class CodableEx
         return any
     }
     
-
     //MARK: public
     public func decode<T:Decodable>(_ dict : [String : Any]) -> T?
     {
@@ -142,16 +141,15 @@ public class CodableEx
     
     //MARK: - encode
     //MARK: private
-    private func _encode<T:Encodable, RT>(obj : T) -> RT?
+    private func _encode<T:Encodable, RT>(_ any : T) -> RT?
     {
-        guard let data : Data = encode(obj) else { return nil }
-        let any = try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers])
-        traverse(obj) { $0.finishEncode() }
-        return any as? RT
+        guard let data : Data = encode(any) else { return nil }
+        defer { traverse(any) { $0.finishEncode() } }
+        let res = try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers])
+        return res as? RT
     }
     
     //MARK: public
-    
     public func encode<T:Encodable>(_ model : T) -> Data?
     {
         let data = try? JSONEncoder().encode(model)
@@ -166,12 +164,12 @@ public class CodableEx
     
     public func encode<T:Encodable>(_ model : T) -> [String:Any]?
     {
-        return _encode(obj: model)
+        return _encode(model)
     }
     
     public func encode<T:Encodable>(_ models : Array<T>) -> Array<[String : Any]>?
     {
-        return _encode(obj: models)
+        return _encode(models)
     }
     
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A99B4CD6204CD5F90046E7AD /* CodableExModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99B4CD4204CD5D90046E7AD /* CodableExModels.swift */; };
 		A9AB1075204914A9006B05B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AB1074204914A9006B05B6 /* AppDelegate.swift */; };
 		A9AB1077204914A9006B05B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AB1076204914A9006B05B6 /* ViewController.swift */; };
 		A9AB107A204914A9006B05B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9AB1078204914A9006B05B6 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A99B4CD4204CD5D90046E7AD /* CodableExModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExModels.swift; sourceTree = "<group>"; };
 		A9AB1071204914A9006B05B6 /* CodableEx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodableEx.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9AB1074204914A9006B05B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A9AB1076204914A9006B05B6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				A9AB10A2204914EA006B05B6 /* CodableEx.swift */,
 				A9AB1074204914A9006B05B6 /* AppDelegate.swift */,
 				A9AB1076204914A9006B05B6 /* ViewController.swift */,
+				A99B4CD4204CD5D90046E7AD /* CodableExModels.swift */,
 				A9AB1078204914A9006B05B6 /* Main.storyboard */,
 				A9AB107B204914A9006B05B6 /* Assets.xcassets */,
 				A9AB107D204914A9006B05B6 /* LaunchScreen.storyboard */,
@@ -265,6 +268,7 @@
 				A9AB10A3204914EA006B05B6 /* CodableEx.swift in Sources */,
 				A9AB1077204914A9006B05B6 /* ViewController.swift in Sources */,
 				A9AB1075204914A9006B05B6 /* AppDelegate.swift in Sources */,
+				A99B4CD6204CD5F90046E7AD /* CodableExModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

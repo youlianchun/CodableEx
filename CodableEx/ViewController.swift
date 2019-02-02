@@ -41,4 +41,41 @@ extension RawRepresentable{ var rawName : String { get{ return "\(self)" } } }
 
 func enumValue<E:RawRepresentable>(value:E.RawValue) -> E? { return E(rawValue: value) }
 
+func binarySearch<T, V:Comparable>(_ array:[T],_ target:T ,_ map:@escaping (T) -> V) -> (idx:Int, finded:Bool)
+{
+    let t = map(target)
+    return binarySearch(array, t, map)
+}
 
+func binarySearch<T, V:Comparable>(_ array:[T],_ target:V ,_ map:@escaping (T) -> V) -> (idx:Int, finded:Bool)
+{
+    func search(_ start:Int,_ end:Int) -> (idx:Int, finded:Bool)
+    {
+        if start > end {
+            return (start, false)
+        }
+        let mid = start + (end - start)/2
+        let m = map(array[mid])
+        if target == m {
+            return (mid, true)
+        }
+        else
+        {
+            let desc = map(array[start]) > map(array[end])
+            if desc {
+                if target > m {
+                    return search(start, mid-1)
+                }else {
+                    return search(mid+1,  end)
+                }
+            }else {
+                if target > m {
+                    return search(mid+1,  end)
+                }else {
+                  return search(start, mid-1)
+                }
+            }
+        }
+    }
+    return search(0, array.count-1)
+}

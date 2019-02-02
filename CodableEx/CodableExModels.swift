@@ -10,16 +10,15 @@ import Foundation
 
 class CodableModel2 : CodableExProtocol
 {
+    
     var num : String?
     var flag : String?
     
-    func finishEncode() ->Void
-    {
+    func finishEncode() ->Void {
         print("finishEncode\(self)")
     }
     
-    func finishDecode() ->Void
-    {
+    func finishDecode() ->Void {
         print("finishDecode\(self)")
     }
     
@@ -51,6 +50,7 @@ enum ModelType: Int, Codable
 
 class CodableModel : CodableExProtocol
 {
+    
     var num : String?
     var flag : String?
     var model : Array<CodableModel2>?
@@ -64,13 +64,11 @@ class CodableModel : CodableExProtocol
         case mt
     }
     
-    func finishEncode() ->Void
-    {
+    func finishEncode() ->Void {
         print("finishEncode\(self)")
     }
     
-    func finishDecode() ->Void
-    {
+    func finishDecode() ->Void {
         print("finishDecode\(self)")
     }
 }

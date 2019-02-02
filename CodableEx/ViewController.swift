@@ -25,15 +25,21 @@ class ViewController: UIViewController
             ["num":"002", "flag_f":"A", "mt":1 , "model":[["num":"0021", "flag":"B"]]]
         ]
 
-        let model   : CodableModel?         = dict.decode()
-        let models  : [CodableModel]?       = arr.decode()
-        let arr2    : Array<[String:Any]>?  = models?.encode()
-        let dict2   : [String:Any]?         = model?.encode()
-        let json    : String?               = model?.encode()
-        let data    : Data?                 = model?.encode()
-
-        print(dict2!, arr2!, json!, data!)
-
+        do {
+            let model   : CodableModel         = try dict.decode()
+            let models  : [CodableModel]       = try arr.decode()
+            let arr2    : Array<[String:Any]>  = try models.encode()
+            let dict2   : [String:Any]         = try model.encode()
+            
+            let json    : String               = try CodableEx().encode(model)
+            let json2   : String               = try CodableEx().encode(models)
+            
+            
+            print(dict2, arr2, json, json2)
+            
+        } catch let err as NSError {
+            print(err.localizedDescription)
+        }
     }
 }
 
